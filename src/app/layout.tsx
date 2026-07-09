@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     "Crewfall is an open-source multiplayer social deduction game. Finish your tasks, find the impostors, survive the Helion.",
   applicationName: "Crewfall",
   keywords: ["multiplayer", "social deduction", "browser game", "impostor"],
+  icons: { icon: "/favicon.svg" },
 };
 
 export const viewport: Viewport = {
@@ -21,9 +22,7 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>

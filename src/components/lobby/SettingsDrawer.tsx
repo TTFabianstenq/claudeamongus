@@ -69,12 +69,58 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
             </div>
 
             <div className="flex-1 space-y-5 overflow-y-auto p-4">
-              <Slider label="Impostors" value={draft.impostorCount} min={1} max={3} step={1} onChange={(v) => set("impostorCount", v)} />
-              <Slider label="Max players" value={draft.maxPlayers} min={4} max={15} step={1} onChange={(v) => set("maxPlayers", v)} />
-              <Slider label="Player speed" value={draft.playerSpeed} min={0.5} max={3} step={0.25} suffix="×" onChange={(v) => set("playerSpeed", v)} />
-              <Slider label="Crew vision" value={draft.crewVision} min={0.25} max={5} step={0.25} suffix="×" onChange={(v) => set("crewVision", v)} />
-              <Slider label="Impostor vision" value={draft.impostorVision} min={0.25} max={5} step={0.25} suffix="×" onChange={(v) => set("impostorVision", v)} />
-              <Slider label="Kill cooldown" value={draft.killCooldown} min={10} max={60} step={2.5} suffix="s" onChange={(v) => set("killCooldown", v)} />
+              <Slider
+                label="Impostors"
+                value={draft.impostorCount}
+                min={1}
+                max={3}
+                step={1}
+                onChange={(v) => set("impostorCount", v)}
+              />
+              <Slider
+                label="Max players"
+                value={draft.maxPlayers}
+                min={4}
+                max={15}
+                step={1}
+                onChange={(v) => set("maxPlayers", v)}
+              />
+              <Slider
+                label="Player speed"
+                value={draft.playerSpeed}
+                min={0.5}
+                max={3}
+                step={0.25}
+                suffix="×"
+                onChange={(v) => set("playerSpeed", v)}
+              />
+              <Slider
+                label="Crew vision"
+                value={draft.crewVision}
+                min={0.25}
+                max={5}
+                step={0.25}
+                suffix="×"
+                onChange={(v) => set("crewVision", v)}
+              />
+              <Slider
+                label="Impostor vision"
+                value={draft.impostorVision}
+                min={0.25}
+                max={5}
+                step={0.25}
+                suffix="×"
+                onChange={(v) => set("impostorVision", v)}
+              />
+              <Slider
+                label="Kill cooldown"
+                value={draft.killCooldown}
+                min={10}
+                max={60}
+                step={2.5}
+                suffix="s"
+                onChange={(v) => set("killCooldown", v)}
+              />
               <Select
                 label="Kill range"
                 value={draft.killRange}
@@ -85,16 +131,80 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                 ]}
                 onChange={(v) => set("killRange", v as RoomSettings["killRange"])}
               />
-              <Slider label="Discussion time" value={draft.discussionTime} min={0} max={120} step={15} suffix="s" onChange={(v) => set("discussionTime", v)} />
-              <Slider label="Voting time" value={draft.votingTime} min={15} max={300} step={15} suffix="s" onChange={(v) => set("votingTime", v)} />
-              <Slider label="Emergency meetings" value={draft.emergencyMeetings} min={0} max={9} step={1} onChange={(v) => set("emergencyMeetings", v)} />
-              <Slider label="Common tasks" value={draft.commonTasks} min={0} max={2} step={1} onChange={(v) => set("commonTasks", v)} />
-              <Slider label="Short tasks" value={draft.shortTasks} min={0} max={5} step={1} onChange={(v) => set("shortTasks", v)} />
-              <Slider label="Long tasks" value={draft.longTasks} min={0} max={3} step={1} onChange={(v) => set("longTasks", v)} />
-              <Toggle label="Visual tasks" hint="Garbage & asteroids show proof to others" value={draft.visualTasks} onChange={(v) => set("visualTasks", v)} />
-              <Toggle label="Confirm ejects" hint="Reveal whether the ejected player was an impostor" value={draft.confirmEjects} onChange={(v) => set("confirmEjects", v)} />
-              <Toggle label="Anonymous votes" hint="Hide who voted for whom" value={draft.anonymousVotes} onChange={(v) => set("anonymousVotes", v)} />
-              <Toggle label="Public room" hint="Show this lobby in the public browser" value={draft.isPublic} onChange={(v) => set("isPublic", v)} />
+              <Slider
+                label="Discussion time"
+                value={draft.discussionTime}
+                min={0}
+                max={120}
+                step={15}
+                suffix="s"
+                onChange={(v) => set("discussionTime", v)}
+              />
+              <Slider
+                label="Voting time"
+                value={draft.votingTime}
+                min={15}
+                max={300}
+                step={15}
+                suffix="s"
+                onChange={(v) => set("votingTime", v)}
+              />
+              <Slider
+                label="Emergency meetings"
+                value={draft.emergencyMeetings}
+                min={0}
+                max={9}
+                step={1}
+                onChange={(v) => set("emergencyMeetings", v)}
+              />
+              <Slider
+                label="Common tasks"
+                value={draft.commonTasks}
+                min={0}
+                max={2}
+                step={1}
+                onChange={(v) => set("commonTasks", v)}
+              />
+              <Slider
+                label="Short tasks"
+                value={draft.shortTasks}
+                min={0}
+                max={5}
+                step={1}
+                onChange={(v) => set("shortTasks", v)}
+              />
+              <Slider
+                label="Long tasks"
+                value={draft.longTasks}
+                min={0}
+                max={3}
+                step={1}
+                onChange={(v) => set("longTasks", v)}
+              />
+              <Toggle
+                label="Visual tasks"
+                hint="Garbage & asteroids show proof to others"
+                value={draft.visualTasks}
+                onChange={(v) => set("visualTasks", v)}
+              />
+              <Toggle
+                label="Confirm ejects"
+                hint="Reveal whether the ejected player was an impostor"
+                value={draft.confirmEjects}
+                onChange={(v) => set("confirmEjects", v)}
+              />
+              <Toggle
+                label="Anonymous votes"
+                hint="Hide who voted for whom"
+                value={draft.anonymousVotes}
+                onChange={(v) => set("anonymousVotes", v)}
+              />
+              <Toggle
+                label="Public room"
+                hint="Show this lobby in the public browser"
+                value={draft.isPublic}
+                onChange={(v) => set("isPublic", v)}
+              />
             </div>
 
             <div className="border-space-600 border-t p-4">

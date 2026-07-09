@@ -36,9 +36,7 @@ export function LightsFix({ panelId, onDone }: FixProps) {
         {switches.map((on, i) => (
           <button
             key={i}
-            onClick={() =>
-              setSwitches((s) => s.map((v, idx) => (idx === i ? !v : v)))
-            }
+            onClick={() => setSwitches((s) => s.map((v, idx) => (idx === i ? !v : v)))}
             className="flex flex-col items-center gap-2 cursor-pointer"
             aria-pressed={on}
             aria-label={`Breaker ${i + 1}`}
@@ -87,7 +85,9 @@ export function ReactorFix({ panelId, onDone }: FixProps) {
     };
   }, [holding, panelId]);
 
-  const secondsLeft = sabotage?.deadline ? Math.max(0, Math.ceil((sabotage.deadline - now) / 1000)) : 0;
+  const secondsLeft = sabotage?.deadline
+    ? Math.max(0, Math.ceil((sabotage.deadline - now) / 1000))
+    : 0;
   const otherPanel = panelId === "fix-reactor-a" ? "fix-reactor-b" : "fix-reactor-a";
   const otherHeld = sabotage?.fixed[otherPanel] ?? false;
 
@@ -169,7 +169,9 @@ export function O2Fix({ panelId, onDone }: FixProps) {
       <div>
         <div
           className={`mb-2 h-10 w-44 rounded-lg border-2 text-center font-mono text-xl font-black leading-9 ${
-            wrong ? "border-danger-500 text-danger-500" : "border-space-600 bg-space-950 text-mint-400"
+            wrong
+              ? "border-danger-500 text-danger-500"
+              : "border-space-600 bg-space-950 text-mint-400"
           }`}
           aria-live="polite"
         >
@@ -251,7 +253,10 @@ export function CommsFix({ panelId, onDone }: FixProps) {
         aria-label="Frequency dial"
         disabled={sent}
       />
-      <p className={`mt-2 text-center text-sm font-black ${locked ? "text-mint-400" : "text-space-400"}`} role="status">
+      <p
+        className={`mt-2 text-center text-sm font-black ${locked ? "text-mint-400" : "text-space-400"}`}
+        role="status"
+      >
         {locked ? "SIGNAL LOCKED ✓" : "Tune the frequency…"}
       </p>
     </div>

@@ -54,15 +54,51 @@ export function AlignEngineTask({ onComplete }: AlignEngineTaskProps) {
       >
         <svg viewBox="0 0 400 220" className="h-full w-full">
           {/* guide line */}
-          <line x1="150" y1="110" x2="400" y2="110" stroke="#38405c" strokeWidth="3" strokeDasharray="8 8" />
+          <line
+            x1="150"
+            y1="110"
+            x2="400"
+            y2="110"
+            stroke="#38405c"
+            strokeWidth="3"
+            strokeDasharray="8 8"
+          />
           {/* engine block */}
           <g transform={`translate(90 110) rotate(${angle})`}>
-            <rect x="-70" y="-42" width="90" height="84" rx="10" fill="#2a324c" stroke="#46557a" strokeWidth="3" />
-            <rect x="18" y="-20" width="46" height="40" rx="6" fill={locked || aligned ? "#5fd3a8" : "#e2434b"} />
-            <line x1="60" y1="0" x2="310" y2="0" stroke={locked || aligned ? "#5fd3a8" : "#e2434b"} strokeWidth="4" />
+            <rect
+              x="-70"
+              y="-42"
+              width="90"
+              height="84"
+              rx="10"
+              fill="#2a324c"
+              stroke="#46557a"
+              strokeWidth="3"
+            />
+            <rect
+              x="18"
+              y="-20"
+              width="46"
+              height="40"
+              rx="6"
+              fill={locked || aligned ? "#5fd3a8" : "#e2434b"}
+            />
+            <line
+              x1="60"
+              y1="0"
+              x2="310"
+              y2="0"
+              stroke={locked || aligned ? "#5fd3a8" : "#e2434b"}
+              strokeWidth="4"
+            />
             {/* exhaust flame */}
             <path d="M -70 -14 L -100 0 L -70 14 Z" fill="#ffd166">
-              <animate attributeName="opacity" values="1;0.5;1" dur="0.4s" repeatCount="indefinite" />
+              <animate
+                attributeName="opacity"
+                values="1;0.5;1"
+                dur="0.4s"
+                repeatCount="indefinite"
+              />
             </path>
           </g>
           {locked && (

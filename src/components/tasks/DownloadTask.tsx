@@ -54,7 +54,10 @@ export function DownloadTask({ mode, onComplete }: DownloadTaskProps) {
               aria-valuemin={0}
               aria-valuemax={100}
             >
-              <div className="bg-accent-400 h-full transition-all" style={{ width: `${progress * 100}%` }} />
+              <div
+                className="bg-accent-400 h-full transition-all"
+                style={{ width: `${progress * 100}%` }}
+              />
             </div>
             <p className="text-space-400 mt-2 text-xs">
               {progress >= 1 ? "Complete!" : `Estimated time: ${eta}s`}

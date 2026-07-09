@@ -65,7 +65,14 @@ export function CamerasPanel() {
                       {cameras ? (
                         <svg viewBox="-240 -135 480 270" className="h-full w-full">
                           <rect x={-240} y={-135} width={480} height={270} fill="#0c1120" />
-                          <rect x={-240} y={-135} width={480} height={270} fill="url(#scan)" opacity={0.15} />
+                          <rect
+                            x={-240}
+                            y={-135}
+                            width={480}
+                            height={270}
+                            fill="url(#scan)"
+                            opacity={0.15}
+                          />
                           <defs>
                             <linearGradient id="scan" x1="0" x2="0" y1="0" y2="1">
                               <stop offset="0" stopColor="#7ce7ff" />
@@ -83,7 +90,14 @@ export function CamerasPanel() {
                             </g>
                           ))}
                           {feed && feed.players.length === 0 && (
-                            <text x={0} y={4} textAnchor="middle" fill="#3a4568" fontSize={20} fontWeight={700}>
+                            <text
+                              x={0}
+                              y={4}
+                              textAnchor="middle"
+                              fill="#3a4568"
+                              fontSize={20}
+                              fontWeight={700}
+                            >
                               no movement
                             </text>
                           )}

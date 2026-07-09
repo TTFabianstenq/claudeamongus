@@ -78,7 +78,10 @@ interface GameStoreState {
   reset: () => void;
   setTasks: (tasks: TaskAssignment[]) => void;
   setSnapshotState: (
-    s: Pick<GameSnapshot, "taskBar" | "sabotage" | "killCooldownAt" | "emergenciesLeft" | "admin" | "cameras">,
+    s: Pick<
+      GameSnapshot,
+      "taskBar" | "sabotage" | "killCooldownAt" | "emergenciesLeft" | "admin" | "cameras"
+    >,
   ) => void;
   setMeeting: (meeting: MeetingState | null) => void;
   setGameOver: (payload: GameOverPayload | null) => void;
@@ -183,8 +186,7 @@ export const useGameStore = create<GameStoreState>((set) => ({
   setKillCam: (killCam) => set({ killCam }),
   setContext: (context) => set({ context }),
   setOpenPanel: (openPanel) => set({ openPanel }),
-  addChat: (message) =>
-    set((state) => ({ chat: [...state.chat.slice(-99), message] })),
+  addChat: (message) => set((state) => ({ chat: [...state.chat.slice(-99), message] })),
   clearChat: () => set({ chat: [] }),
   setVisualToast: (visualToast) => set({ visualToast }),
 }));

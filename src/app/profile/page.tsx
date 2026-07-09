@@ -41,8 +41,12 @@ export default function ProfilePage() {
   const { user, loading } = useAuthSession();
   const [data, setData] = useState<ProfileData | null>(null);
   const [matches, setMatches] = useState<MatchRow[]>([]);
-  const [friends, setFriends] = useState<Array<{ friendshipId: string; user: { id: string; name: string } }>>([]);
-  const [pending, setPending] = useState<Array<{ friendshipId: string; user: { id: string; name: string }; incoming: boolean }>>([]);
+  const [friends, setFriends] = useState<
+    Array<{ friendshipId: string; user: { id: string; name: string } }>
+  >([]);
+  const [pending, setPending] = useState<
+    Array<{ friendshipId: string; user: { id: string; name: string }; incoming: boolean }>
+  >([]);
   const [friendEmail, setFriendEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
 
@@ -96,7 +100,8 @@ export default function ProfilePage() {
   }
 
   const stats = data?.stats;
-  const winRate = stats && stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0;
+  const winRate =
+    stats && stats.gamesPlayed > 0 ? Math.round((stats.gamesWon / stats.gamesPlayed) * 100) : 0;
 
   return (
     <main className="starfield bg-space-950 min-h-dvh">
@@ -149,19 +154,28 @@ export default function ProfilePage() {
                 </Button>
               </div>
               {message && <p className="text-accent-400 mb-2 text-xs font-bold">{message}</p>}
-              {pending.filter((p) => p.incoming).map((p) => (
-                <div key={p.friendshipId} className="mb-1 flex items-center justify-between text-sm">
-                  <span className="text-space-200">{p.user.name} wants to be friends</span>
-                  <span className="flex gap-1">
-                    <Button size="sm" onClick={() => void respond(p.friendshipId, "accept")}>
-                      Accept
-                    </Button>
-                    <Button size="sm" variant="ghost" onClick={() => void respond(p.friendshipId, "decline")}>
-                      Decline
-                    </Button>
-                  </span>
-                </div>
-              ))}
+              {pending
+                .filter((p) => p.incoming)
+                .map((p) => (
+                  <div
+                    key={p.friendshipId}
+                    className="mb-1 flex items-center justify-between text-sm"
+                  >
+                    <span className="text-space-200">{p.user.name} wants to be friends</span>
+                    <span className="flex gap-1">
+                      <Button size="sm" onClick={() => void respond(p.friendshipId, "accept")}>
+                        Accept
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => void respond(p.friendshipId, "decline")}
+                      >
+                        Decline
+                      </Button>
+                    </span>
+                  </div>
+                ))}
               {friends.length === 0 && pending.length === 0 ? (
                 <p className="text-space-400 text-sm">No friends yet — add someone by email.</p>
               ) : (
@@ -177,11 +191,13 @@ export default function ProfilePage() {
                       </button>
                     </li>
                   ))}
-                  {pending.filter((p) => !p.incoming).map((p) => (
-                    <li key={p.friendshipId} className="text-space-400 text-sm">
-                      {p.user.name} <span className="text-xs">(pending)</span>
-                    </li>
-                  ))}
+                  {pending
+                    .filter((p) => !p.incoming)
+                    .map((p) => (
+                      <li key={p.friendshipId} className="text-space-400 text-sm">
+                        {p.user.name} <span className="text-xs">(pending)</span>
+                      </li>
+                    ))}
                 </ul>
               )}
             </section>
@@ -198,11 +214,19 @@ export default function ProfilePage() {
                       className="bg-space-900/70 border-space-600 flex items-center justify-between rounded-xl border px-4 py-2.5 text-sm"
                     >
                       <span>
-                        <span className={`font-black ${m.won ? "text-mint-400" : "text-danger-500"}`}>
+                        <span
+                          className={`font-black ${m.won ? "text-mint-400" : "text-danger-500"}`}
+                        >
                           {m.won ? "WIN" : "LOSS"}
                         </span>
                         <span className="text-space-400"> as </span>
-                        <span className={m.myRole === "impostor" ? "text-danger-500 font-bold" : "text-accent-400 font-bold"}>
+                        <span
+                          className={
+                            m.myRole === "impostor"
+                              ? "text-danger-500 font-bold"
+                              : "text-accent-400 font-bold"
+                          }
+                        >
                           {m.myRole}
                         </span>
                         <span className="text-space-400 block text-xs">
@@ -211,7 +235,9 @@ export default function ProfilePage() {
                       </span>
                       <span className="text-space-400 text-right text-xs">
                         {m.kills > 0 && <span className="block">{m.kills} kills</span>}
-                        {m.tasksCompleted > 0 && <span className="block">{m.tasksCompleted} tasks</span>}
+                        {m.tasksCompleted > 0 && (
+                          <span className="block">{m.tasksCompleted} tasks</span>
+                        )}
                       </span>
                     </li>
                   ))}

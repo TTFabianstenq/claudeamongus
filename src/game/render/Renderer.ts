@@ -134,7 +134,10 @@ export class Renderer {
 
   private drawShip(time: number, state: RenderState, meta: RenderMeta): void {
     const { ctx } = this;
-    const floors = [...this.map.rooms.map((r) => ({ rect: r.rect, tint: r.tint })), ...this.map.corridors.map((rect) => ({ rect, tint: "#232838" }))];
+    const floors = [
+      ...this.map.rooms.map((r) => ({ rect: r.rect, tint: r.tint })),
+      ...this.map.corridors.map((rect) => ({ rect, tint: "#232838" })),
+    ];
 
     // hull pass: thick outline behind every floor rect forms the walls
     ctx.lineJoin = "round";
@@ -176,11 +179,7 @@ export class Renderer {
     ctx.textAlign = "center";
     ctx.fillStyle = "rgba(255,255,255,0.16)";
     for (const room of this.map.rooms) {
-      ctx.fillText(
-        room.name.toUpperCase(),
-        room.rect.x + room.rect.w / 2,
-        room.rect.y + 30,
-      );
+      ctx.fillText(room.name.toUpperCase(), room.rect.x + room.rect.w / 2, room.rect.y + 30);
     }
 
     this.drawVents(meta, time);
@@ -468,7 +467,9 @@ export class Renderer {
     if (pMeta) {
       ctx.save();
       ctx.translate(player.x, player.y + bob);
-      const isMateName = meta.myRole === "impostor" && (meta.mates.includes(player.id) || (player.isMe && meta.myRole === "impostor"));
+      const isMateName =
+        meta.myRole === "impostor" &&
+        (meta.mates.includes(player.id) || (player.isMe && meta.myRole === "impostor"));
       ctx.font = "600 13px system-ui, sans-serif";
       ctx.textAlign = "center";
       ctx.lineWidth = 3;

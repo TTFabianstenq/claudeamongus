@@ -136,9 +136,7 @@ export class SabotageService {
   }
 
   meltdownExpired(now: number): boolean {
-    return (
-      this.active !== null && this.active.deadline !== null && now >= this.active.deadline
-    );
+    return this.active !== null && this.active.deadline !== null && now >= this.active.deadline;
   }
 
   /**

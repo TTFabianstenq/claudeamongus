@@ -265,7 +265,9 @@ export function HomeScreen() {
                         disabled={room.inGame || room.players >= room.maxPlayers}
                       >
                         <span>
-                          <span className="block font-bold text-white">{room.hostName}&apos;s ship</span>
+                          <span className="block font-bold text-white">
+                            {room.hostName}&apos;s ship
+                          </span>
                           <span className="text-space-400 text-xs font-mono">{room.code}</span>
                         </span>
                         <span className="text-space-400 text-sm font-semibold">
@@ -289,11 +291,17 @@ export function HomeScreen() {
         </div>
 
         <footer className="text-space-400 mt-8 flex flex-wrap items-center justify-between gap-2 text-xs">
-          <span>Crewfall — open-source social deduction. Original art, no affiliation with Among Us.</span>
+          <span>
+            Crewfall — open-source social deduction. Original art, no affiliation with Among Us.
+          </span>
           <span>Best played with 6–10 friends.</span>
         </footer>
       </div>
-      <AuthModal open={authOpen} onClose={() => setAuthOpen(false)} onAuthed={() => void refresh()} />
+      <AuthModal
+        open={authOpen}
+        onClose={() => setAuthOpen(false)}
+        onAuthed={() => void refresh()}
+      />
     </main>
   );
 }

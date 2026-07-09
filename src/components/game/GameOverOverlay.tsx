@@ -64,7 +64,9 @@ export function GameOverOverlay() {
                       className="flex flex-col items-center gap-1"
                     >
                       <Bean color={p.color} size={i === 0 ? 84 : 64} dead={!p.alive} />
-                      <span className={`text-xs font-bold ${p.role === "impostor" ? "text-danger-500" : "text-space-200"}`}>
+                      <span
+                        className={`text-xs font-bold ${p.role === "impostor" ? "text-danger-500" : "text-space-200"}`}
+                      >
                         {p.name}
                       </span>
                     </motion.div>

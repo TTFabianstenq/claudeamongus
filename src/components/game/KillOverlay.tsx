@@ -25,14 +25,23 @@ export function KillOverlay() {
               animate={{ x: 0, scale: 1.15 }}
               transition={{ type: "spring", damping: 12 }}
             >
-              <Bean color={playersMeta[killCam.killerId]?.color ?? "red"} hat={playersMeta[killCam.killerId]?.hat} size={140} />
+              <Bean
+                color={playersMeta[killCam.killerId]?.color ?? "red"}
+                hat={playersMeta[killCam.killerId]?.hat}
+                size={140}
+              />
             </motion.div>
             <motion.div
               initial={{ rotate: 0, y: 0 }}
               animate={{ rotate: 78, y: 46 }}
               transition={{ delay: 0.25, duration: 0.5, ease: "easeIn" }}
             >
-              <Bean color={playersMeta[killCam.victimId]?.color ?? "blue"} hat={playersMeta[killCam.victimId]?.hat} size={110} dead />
+              <Bean
+                color={playersMeta[killCam.victimId]?.color ?? "blue"}
+                hat={playersMeta[killCam.victimId]?.hat}
+                size={110}
+                dead
+              />
             </motion.div>
           </div>
           <motion.p

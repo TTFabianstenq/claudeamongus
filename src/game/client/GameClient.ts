@@ -65,7 +65,12 @@ export interface RenderState {
  */
 export class GameClient {
   readonly map = HELION;
-  private grid = new CollisionGrid(this.map.width, this.map.height, this.map.cell, allFloors(this.map));
+  private grid = new CollisionGrid(
+    this.map.width,
+    this.map.height,
+    this.map.cell,
+    allFloors(this.map),
+  );
 
   private me = { x: 0, y: 0, facing: 1, moving: false };
   private myId = "";
@@ -281,7 +286,14 @@ export class GameClient {
     if (this.pendingInputs.length > 120) this.pendingInputs.shift();
     this.socket.emit("game:input", input);
 
-    const next = stepMovement(this.grid, this.me, input, this.currentSpeed(), 1 / TICK_RATE, !this.amAlive);
+    const next = stepMovement(
+      this.grid,
+      this.me,
+      input,
+      this.currentSpeed(),
+      1 / TICK_RATE,
+      !this.amAlive,
+    );
     this.me.moving = next.x !== this.me.x || next.y !== this.me.y;
     if (vec.x !== 0) this.me.facing = vec.x > 0 ? 1 : -1;
     this.me.x = next.x;
@@ -358,7 +370,7 @@ export class GameClient {
         }
       }
       // nearest kill target among interpolated remote players
-      const range = KILL_RANGES[store.settings.killRange];
+      const range: number = KILL_RANGES[store.settings.killRange];
       let best = range;
       for (const [id, buffer] of this.buffers) {
         if (store.mates.includes(id)) continue;
@@ -506,10 +518,7 @@ export class GameClient {
     };
   }
 
-  private sampleBuffer(
-    buffer: InterpEntry[],
-    t: number,
-  ): Omit<InterpEntry, "t"> | null {
+  private sampleBuffer(buffer: InterpEntry[], t: number): Omit<InterpEntry, "t"> | null {
     if (buffer.length === 0) return null;
     const first = buffer[0];
     const last = buffer[buffer.length - 1];

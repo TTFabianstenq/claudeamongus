@@ -63,7 +63,10 @@ export function GarbageTask({ onComplete }: GarbageTaskProps) {
           style={{ transform: holding ? "translateY(16px)" : "translateY(0)" }}
         />
         {progress >= 1 && (
-          <p className="text-mint-400 absolute inset-0 flex items-center justify-center font-black" role="status">
+          <p
+            className="text-mint-400 absolute inset-0 flex items-center justify-center font-black"
+            role="status"
+          >
             CLEAR ✓
           </p>
         )}

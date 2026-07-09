@@ -29,7 +29,14 @@ export function FuelTask({ onComplete }: FuelTaskProps) {
 
   return (
     <div className="flex items-center justify-center gap-8 py-2">
-      <div className="border-space-600 bg-space-950 relative h-52 w-24 overflow-hidden rounded-xl border-2" role="progressbar" aria-valuenow={Math.round(level)} aria-valuemin={0} aria-valuemax={100} aria-label="Fuel level">
+      <div
+        className="border-space-600 bg-space-950 relative h-52 w-24 overflow-hidden rounded-xl border-2"
+        role="progressbar"
+        aria-valuenow={Math.round(level)}
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-label="Fuel level"
+      >
         <div
           className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-amber-600 to-yellow-400 transition-all"
           style={{ height: `${level}%` }}

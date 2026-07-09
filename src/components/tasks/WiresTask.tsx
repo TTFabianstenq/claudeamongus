@@ -35,7 +35,12 @@ export function WiresTask({ onComplete }: WiresTaskProps) {
       <p className="text-space-400 mb-2 text-sm">
         Tap a wire, then tap its matching colored terminal.
       </p>
-      <svg viewBox="0 0 400 260" className="bg-space-950 w-full rounded-xl" role="group" aria-label="Wire panel">
+      <svg
+        viewBox="0 0 400 260"
+        className="bg-space-950 w-full rounded-xl"
+        role="group"
+        aria-label="Wire panel"
+      >
         <rect x="0" y="0" width="400" height="260" fill="#0c0f1c" rx="12" />
         {/* connected wires */}
         {Object.entries(connections).map(([leftStr, rightSlot]) => {
@@ -54,9 +59,23 @@ export function WiresTask({ onComplete }: WiresTaskProps) {
         })}
         {/* left stubs */}
         {WIRE_COLORS.map((color, i) => (
-          <g key={`l${i}`} onClick={() => setActiveLeft(i)} className="cursor-pointer" role="button" aria-label={`Wire ${i + 1}`}>
-            <rect x="10" y={38 + i * 55} width="50" height="24" fill={color} rx="4"
-              stroke={activeLeft === i ? "#fff" : "transparent"} strokeWidth={3} />
+          <g
+            key={`l${i}`}
+            onClick={() => setActiveLeft(i)}
+            className="cursor-pointer"
+            role="button"
+            aria-label={`Wire ${i + 1}`}
+          >
+            <rect
+              x="10"
+              y={38 + i * 55}
+              width="50"
+              height="24"
+              fill={color}
+              rx="4"
+              stroke={activeLeft === i ? "#fff" : "transparent"}
+              strokeWidth={3}
+            />
             <circle cx="60" cy={50 + i * 55} r={activeLeft === i ? 10 : 7} fill={color} />
           </g>
         ))}
@@ -64,12 +83,31 @@ export function WiresTask({ onComplete }: WiresTaskProps) {
         {rightOrder.map((colorIdx, slot) => {
           const connected = connections[colorIdx] === slot;
           return (
-            <g key={`r${slot}`} onClick={() => connect(slot)} className="cursor-pointer" role="button" aria-label={`Terminal ${slot + 1}`}>
-              <rect x="340" y={38 + slot * 55} width="50" height="24" fill={WIRE_COLORS[colorIdx]} rx="4" opacity={connected ? 1 : 0.75} />
+            <g
+              key={`r${slot}`}
+              onClick={() => connect(slot)}
+              className="cursor-pointer"
+              role="button"
+              aria-label={`Terminal ${slot + 1}`}
+            >
+              <rect
+                x="340"
+                y={38 + slot * 55}
+                width="50"
+                height="24"
+                fill={WIRE_COLORS[colorIdx]}
+                rx="4"
+                opacity={connected ? 1 : 0.75}
+              />
               <circle cx="340" cy={50 + slot * 55} r="7" fill={WIRE_COLORS[colorIdx]} />
               {connected && (
                 <circle cx="365" cy={50 + slot * 55} r="5" fill="#5fd3a8">
-                  <animate attributeName="opacity" values="1;0.4;1" dur="1s" repeatCount="indefinite" />
+                  <animate
+                    attributeName="opacity"
+                    values="1;0.4;1"
+                    dur="1s"
+                    repeatCount="indefinite"
+                  />
                 </circle>
               )}
             </g>

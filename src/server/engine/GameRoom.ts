@@ -114,7 +114,12 @@ export class GameRoom {
   ) {
     this.code = code;
     this.settings = settings;
-    this.grid = new CollisionGrid(this.map.width, this.map.height, this.map.cell, allFloors(this.map));
+    this.grid = new CollisionGrid(
+      this.map.width,
+      this.map.height,
+      this.map.cell,
+      allFloors(this.map),
+    );
     this.tasks = new TaskService(this.map);
     this.sabotage = new SabotageService(this.map, this.grid);
     this.interval = setInterval(() => this.onTick(), TICK_MS);
@@ -327,10 +332,7 @@ export class GameRoom {
   private startPayloadFor(player: ServerPlayer): GameStartPayload {
     return {
       role: player.role,
-      mates:
-        player.role === "impostor"
-          ? this.impostorIds.filter((id) => id !== player.id)
-          : [],
+      mates: player.role === "impostor" ? this.impostorIds.filter((id) => id !== player.id) : [],
       tasks: player.tasks,
       settings: this.settings,
       players: this.playerList.map((p) => ({
@@ -345,7 +347,10 @@ export class GameRoom {
 
   // ---------------------------------------------------------------- inputs
 
-  queueInput(playerId: string, input: { seq: number; t: number; moveX: number; moveY: number }): void {
+  queueInput(
+    playerId: string,
+    input: { seq: number; t: number; moveX: number; moveY: number },
+  ): void {
     const player = this.players.get(playerId);
     if (!player) return;
     if (this.phase !== "playing") return;
@@ -378,7 +383,13 @@ export class GameRoom {
     target.alive = false;
     target.openTask = null;
     this.sabotage.releaseHolds(target.id);
-    this.bodies.push({ id: target.id, playerId: target.id, x: target.x, y: target.y, color: target.color });
+    this.bodies.push({
+      id: target.id,
+      playerId: target.id,
+      x: target.x,
+      y: target.y,
+      color: target.color,
+    });
     // the killer lunges onto the victim, like the original
     killer.x = target.x;
     killer.y = target.y;
@@ -688,7 +699,10 @@ export class GameRoom {
       this.expireDisconnected(now);
     }
 
-    if (this.tick % SNAPSHOT_EVERY_TICKS === 0 && (this.phase === "playing" || this.phase === "meeting")) {
+    if (
+      this.tick % SNAPSHOT_EVERY_TICKS === 0 &&
+      (this.phase === "playing" || this.phase === "meeting")
+    ) {
       this.broadcastSnapshots(now);
     }
   }
@@ -993,7 +1007,9 @@ export class GameRoom {
     }
   }
 
-  private emitTaskBar(visual: { kind: import("@/shared/types").TaskKind; playerId: string } | null = null): void {
+  private emitTaskBar(
+    visual: { kind: import("@/shared/types").TaskKind; playerId: string } | null = null,
+  ): void {
     this.emitEvent({
       type: "taskProgress",
       taskBar: this.tasks.progress(this.playerList),

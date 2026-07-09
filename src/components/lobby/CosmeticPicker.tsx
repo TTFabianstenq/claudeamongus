@@ -80,7 +80,11 @@ export function CosmeticPicker({ open, onClose }: CosmeticPickerProps) {
                     }`}
                     style={{ backgroundColor: c.hex }}
                   >
-                    {taken && <span className="absolute inset-0 flex items-center justify-center text-lg">✕</span>}
+                    {taken && (
+                      <span className="absolute inset-0 flex items-center justify-center text-lg">
+                        ✕
+                      </span>
+                    )}
                   </button>
                 );
               })}

@@ -29,8 +29,9 @@ async function main(): Promise<void> {
     }
   }
 
-  let handle: ((req: import("node:http").IncomingMessage, res: import("node:http").ServerResponse) => void) | null =
-    null;
+  let handle:
+    | ((req: import("node:http").IncomingMessage, res: import("node:http").ServerResponse) => void)
+    | null = null;
 
   if (!realtimeOnly) {
     const app = next({ dev, hostname, port });

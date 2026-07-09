@@ -107,7 +107,10 @@ export function AsteroidsTask({ onComplete }: AsteroidsTaskProps) {
           </button>
         ))}
         {destroyed >= TARGET && (
-          <p className="text-mint-400 absolute inset-0 flex items-center justify-center text-xl font-black" role="status">
+          <p
+            className="text-mint-400 absolute inset-0 flex items-center justify-center text-xl font-black"
+            role="status"
+          >
             FIELD CLEAR ✓
           </p>
         )}

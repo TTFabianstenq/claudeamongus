@@ -71,7 +71,9 @@ export function LobbyView() {
     <div className="starfield mx-auto flex h-full w-full max-w-6xl flex-col gap-4 overflow-y-auto px-4 py-5">
       <header className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-space-400 text-xs font-bold tracking-widest uppercase">Private lobby</p>
+          <p className="text-space-400 text-xs font-bold tracking-widest uppercase">
+            Private lobby
+          </p>
           <button
             onClick={() => void copyCode()}
             className="group flex items-center gap-2 cursor-pointer"
@@ -107,9 +109,7 @@ export function LobbyView() {
           className="bg-danger-500/20 border-danger-500 rounded-2xl border p-4 text-center"
           role="status"
         >
-          <p className="text-2xl font-black text-white">
-            Launching in {lobby.countdown}…
-          </p>
+          <p className="text-2xl font-black text-white">Launching in {lobby.countdown}…</p>
           <p className="text-space-200 text-sm">Assigning roles. No takebacks.</p>
         </motion.div>
       )}
@@ -150,8 +150,16 @@ export function LobbyView() {
                     {player.name}
                     {player.id === myPlayerId && <span className="text-accent-400"> (you)</span>}
                   </span>
-                  <span className={`text-xs font-semibold ${player.ready || player.isHost ? "text-mint-400" : "text-space-400"}`}>
-                    {!player.connected ? "reconnecting…" : player.isHost ? "host" : player.ready ? "ready" : "not ready"}
+                  <span
+                    className={`text-xs font-semibold ${player.ready || player.isHost ? "text-mint-400" : "text-space-400"}`}
+                  >
+                    {!player.connected
+                      ? "reconnecting…"
+                      : player.isHost
+                        ? "host"
+                        : player.ready
+                          ? "ready"
+                          : "not ready"}
                   </span>
                 </motion.li>
               ))}
@@ -190,7 +198,13 @@ export function LobbyView() {
             {(startError ?? lastError) && (
               <p role="alert" className="text-danger-500 text-sm font-bold">
                 {startError ?? lastError}
-                <button className="text-space-400 ml-2 underline cursor-pointer" onClick={() => { setStartError(null); setError(null); }}>
+                <button
+                  className="text-space-400 ml-2 underline cursor-pointer"
+                  onClick={() => {
+                    setStartError(null);
+                    setError(null);
+                  }}
+                >
                   dismiss
                 </button>
               </p>

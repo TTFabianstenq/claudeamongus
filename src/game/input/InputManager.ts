@@ -105,7 +105,8 @@ export class InputManager {
     x += this.joystick.x;
     y += this.joystick.y;
 
-    const pads = typeof navigator !== "undefined" && navigator.getGamepads ? navigator.getGamepads() : [];
+    const pads =
+      typeof navigator !== "undefined" && navigator.getGamepads ? navigator.getGamepads() : [];
     for (const pad of pads) {
       if (!pad) continue;
       const gx = pad.axes[0] ?? 0;

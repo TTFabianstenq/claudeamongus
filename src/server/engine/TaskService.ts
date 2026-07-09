@@ -6,8 +6,7 @@ import type { RoomSettings, TaskAssignment, TaskKind } from "@/shared/types";
 import type { ServerPlayer } from "./ServerPlayer";
 
 export type TaskResult =
-  | { ok: true; visual: { kind: TaskKind; playerId: string } | null }
-  | { ok: false; error: string };
+  { ok: true; visual: { kind: TaskKind; playerId: string } | null } | { ok: false; error: string };
 
 /**
  * Assigns tasks at game start and validates every open/complete attempt.
@@ -107,9 +106,7 @@ export class TaskService {
       task.done = true;
       if (player.role === "crewmate") player.stats.tasksCompleted += 1;
       const visual =
-        task.visual && player.role === "crewmate"
-          ? { kind: task.kind, playerId: player.id }
-          : null;
+        task.visual && player.role === "crewmate" ? { kind: task.kind, playerId: player.id } : null;
       return { ok: true, visual };
     }
     return { ok: true, visual: null };

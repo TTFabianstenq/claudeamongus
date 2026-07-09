@@ -100,8 +100,12 @@ export function TaskModal() {
               {openPanel.kind === "wires" && <WiresTask onComplete={completeTask} />}
               {openPanel.kind === "cardSwipe" && <CardSwipeTask onComplete={completeTask} />}
               {openPanel.kind === "fuelEngine" && <FuelTask onComplete={completeTask} />}
-              {openPanel.kind === "download" && <DownloadTask mode="download" onComplete={completeTask} />}
-              {openPanel.kind === "upload" && <DownloadTask mode="upload" onComplete={completeTask} />}
+              {openPanel.kind === "download" && (
+                <DownloadTask mode="download" onComplete={completeTask} />
+              )}
+              {openPanel.kind === "upload" && (
+                <DownloadTask mode="upload" onComplete={completeTask} />
+              )}
               {openPanel.kind === "alignEngine" && <AlignEngineTask onComplete={completeTask} />}
               {openPanel.kind === "unlockManifolds" && <ManifoldsTask onComplete={completeTask} />}
               {openPanel.kind === "startReactor" && <SimonTask onComplete={completeTask} />}
@@ -111,10 +115,18 @@ export function TaskModal() {
           )}
           {isFix && (
             <>
-              {openPanel.kind === "lights" && <LightsFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />}
-              {openPanel.kind === "reactor" && <ReactorFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />}
-              {openPanel.kind === "o2" && <O2Fix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />}
-              {openPanel.kind === "comms" && <CommsFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />}
+              {openPanel.kind === "lights" && (
+                <LightsFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />
+              )}
+              {openPanel.kind === "reactor" && (
+                <ReactorFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />
+              )}
+              {openPanel.kind === "o2" && (
+                <O2Fix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />
+              )}
+              {openPanel.kind === "comms" && (
+                <CommsFix panelId={openPanel.panelId} onDone={() => setOpenPanel(null)} />
+              )}
             </>
           )}
         </motion.div>

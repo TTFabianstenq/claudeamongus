@@ -36,10 +36,11 @@ export function GameHud() {
 
   if (meeting) return null;
 
-  const client = getGameClient();
   const killSecondsLeft = Math.max(0, Math.ceil((killCooldownAt - now) / 1000));
   const doneCount = tasks.filter((t) => t.done).length;
-  const sabotageDeadline = sabotage?.deadline ? Math.max(0, Math.ceil((sabotage.deadline - now) / 1000)) : null;
+  const sabotageDeadline = sabotage?.deadline
+    ? Math.max(0, Math.ceil((sabotage.deadline - now) / 1000))
+    : null;
 
   const useLabel =
     context.useTarget?.type === "task" || context.useTarget?.type === "fix"
@@ -137,7 +138,9 @@ export function GameHud() {
                 >
                   {roomName ? `${roomName}: ` : ""}
                   {taskName(task.kind)}
-                  {task.consoleIds.length > 1 && !task.done && ` (${task.stage}/${task.consoleIds.length})`}
+                  {task.consoleIds.length > 1 &&
+                    !task.done &&
+                    ` (${task.stage}/${task.consoleIds.length})`}
                 </li>
               );
             })}

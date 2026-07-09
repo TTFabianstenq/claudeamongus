@@ -228,7 +228,12 @@ export type GameEvent =
   | { type: "bodyReported"; reporterId: string; bodyId: string }
   | { type: "emergencyCalled"; byId: string }
   | { type: "meetingUpdate"; meeting: MeetingState }
-  | { type: "playerEjected"; playerId: string; role: Role | null; remainingImpostors: number | null }
+  | {
+      type: "playerEjected";
+      playerId: string;
+      role: Role | null;
+      remainingImpostors: number | null;
+    }
   | { type: "meetingEnded" }
   | { type: "taskProgress"; taskBar: number; visual: { kind: TaskKind; playerId: string } | null }
   | { type: "sabotageStarted"; sabotage: ActiveSabotage }

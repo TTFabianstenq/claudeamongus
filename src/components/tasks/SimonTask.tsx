@@ -74,7 +74,10 @@ export function SimonTask({ onComplete }: SimonTaskProps) {
 
   return (
     <div className="py-2">
-      <div className="mb-3 flex items-center justify-center gap-1.5" aria-label={`Round ${round} of ${ROUNDS}`}>
+      <div
+        className="mb-3 flex items-center justify-center gap-1.5"
+        aria-label={`Round ${round} of ${ROUNDS}`}
+      >
         {Array.from({ length: ROUNDS }, (_, i) => (
           <span
             key={i}
@@ -83,9 +86,17 @@ export function SimonTask({ onComplete }: SimonTaskProps) {
         ))}
       </div>
       <p className="text-space-400 mb-3 text-center text-sm" role="status">
-        {failed ? "Wrong pad! Watch again…" : showing ? "Watch the sequence…" : "Repeat the sequence."}
+        {failed
+          ? "Wrong pad! Watch again…"
+          : showing
+            ? "Watch the sequence…"
+            : "Repeat the sequence."}
       </p>
-      <div className="mx-auto grid w-full max-w-64 grid-cols-3 gap-2" role="group" aria-label="Reactor pads">
+      <div
+        className="mx-auto grid w-full max-w-64 grid-cols-3 gap-2"
+        role="group"
+        aria-label="Reactor pads"
+      >
         {PADS.map((pad) => (
           <button
             key={pad}

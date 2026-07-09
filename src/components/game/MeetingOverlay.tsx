@@ -87,7 +87,12 @@ export function MeetingOverlay() {
                   ? `${caller?.name ?? "Someone"} found ${playersMeta[meeting.reportedBody]?.name ?? "a body"}.`
                   : `${caller?.name ?? "Someone"} hit the button.`)}
               {meeting.stage === "discussion" && "Discuss. Who is acting sus?"}
-              {meeting.stage === "voting" && (amDead ? "Ghosts watch. The living vote." : iVoted ? "Vote locked in." : "Cast your vote.")}
+              {meeting.stage === "voting" &&
+                (amDead
+                  ? "Ghosts watch. The living vote."
+                  : iVoted
+                    ? "Vote locked in."
+                    : "Cast your vote.")}
               {meeting.stage === "results" && "The votes are in…"}
             </p>
           </div>
@@ -111,7 +116,8 @@ export function MeetingOverlay() {
               if (!meta) return null;
               const reveal = meeting.reveal?.find((r) => r.targetId === id);
               const hasVoted = meeting.voted.includes(id);
-              const isSelectable = meeting.stage === "voting" && !amDead && !iVoted && id !== myPlayerId;
+              const isSelectable =
+                meeting.stage === "voting" && !amDead && !iVoted && id !== myPlayerId;
               // grey out ghosts: any player not in the current voted-capable set
               return (
                 <button
@@ -134,7 +140,10 @@ export function MeetingOverlay() {
                       <p className="text-mint-400 text-xs font-bold">voted ✓</p>
                     )}
                     {meeting.stage === "results" && reveal && (
-                      <div className="flex flex-wrap items-center gap-1" aria-label={`${reveal.count} votes`}>
+                      <div
+                        className="flex flex-wrap items-center gap-1"
+                        aria-label={`${reveal.count} votes`}
+                      >
                         {settings.anonymousVotes
                           ? Array.from({ length: reveal.count }).map((_, i) => (
                               <span key={i} className="bg-space-400 h-3 w-3 rounded-full" />
@@ -143,7 +152,9 @@ export function MeetingOverlay() {
                               <span
                                 key={vid}
                                 className="h-3 w-3 rounded-full border border-black/40"
-                                style={{ backgroundColor: colorHex(playersMeta[vid]?.color ?? "red") }}
+                                style={{
+                                  backgroundColor: colorHex(playersMeta[vid]?.color ?? "red"),
+                                }}
                                 title={playersMeta[vid]?.name}
                               />
                             ))}
@@ -151,7 +162,10 @@ export function MeetingOverlay() {
                     )}
                   </div>
                   {meeting.reportedBody === id && (
-                    <span className="text-danger-500 absolute right-2 top-1 text-lg" title="Reported body">
+                    <span
+                      className="text-danger-500 absolute right-2 top-1 text-lg"
+                      title="Reported body"
+                    >
                       ✝
                     </span>
                   )}
@@ -185,9 +199,7 @@ export function MeetingOverlay() {
                 </button>
               </div>
             )}
-            {meeting.stage === "results" && (
-              <ResultsSummary />
-            )}
+            {meeting.stage === "results" && <ResultsSummary />}
           </div>
         </div>
       </motion.div>

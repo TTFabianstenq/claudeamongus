@@ -3,6 +3,7 @@
 import { io, type Socket } from "socket.io-client";
 import type { Ack, ClientToServerEvents, ServerToClientEvents } from "@/shared/protocol";
 import { loadResume, useLobbyStore } from "@/game/store/lobbyStore";
+import { bindSocketHandlers } from "@/game/net/bindings";
 
 export type GameSocket = Socket<ServerToClientEvents, ClientToServerEvents>;
 
@@ -44,6 +45,8 @@ export async function connectSocket(guestName: string): Promise<GameSocket> {
       reconnectionDelay: 500,
       reconnectionDelayMax: 5000,
     });
+
+    bindSocketHandlers(s);
 
     s.io.on("reconnect_attempt", () => {
       useLobbyStore.getState().setStatus("reconnecting");

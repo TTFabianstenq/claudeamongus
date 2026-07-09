@@ -15,7 +15,14 @@ interface BeanProps {
  * The crewmate rendered as an inline SVG — used everywhere outside the
  * canvas (lobby list, meeting cards, cosmetic picker, eject screen).
  */
-export function Bean({ color, hat = "none", size = 64, dead = false, flip = false, className }: BeanProps) {
+export function Bean({
+  color,
+  hat = "none",
+  size = 64,
+  dead = false,
+  flip = false,
+  className,
+}: BeanProps) {
   const main = colorHex(color);
   const dark = colorDarkHex(color);
   return (
@@ -47,7 +54,15 @@ export function Bean({ color, hat = "none", size = 64, dead = false, flip = fals
         </g>
       ) : (
         <>
-          <ellipse cx="40" cy="25" rx="12" ry="8.5" fill="#9fdcef" stroke="rgba(0,0,0,0.25)" strokeWidth="1.5" />
+          <ellipse
+            cx="40"
+            cy="25"
+            rx="12"
+            ry="8.5"
+            fill="#9fdcef"
+            stroke="rgba(0,0,0,0.25)"
+            strokeWidth="1.5"
+          />
           <ellipse cx="36" cy="22" rx="5" ry="2.8" fill="rgba(255,255,255,0.65)" />
         </>
       )}
@@ -60,7 +75,9 @@ export function Bean({ color, hat = "none", size = 64, dead = false, flip = fals
 function Hat({ hat }: { hat: string }) {
   switch (hat) {
     case "halo":
-      return <ellipse cx="33" cy="0" rx="14" ry="4" fill="none" stroke="#ffe08a" strokeWidth="3.5" />;
+      return (
+        <ellipse cx="33" cy="0" rx="14" ry="4" fill="none" stroke="#ffe08a" strokeWidth="3.5" />
+      );
     case "antenna":
       return (
         <g>
@@ -84,12 +101,7 @@ function Hat({ hat }: { hat: string }) {
         </g>
       );
     case "crown":
-      return (
-        <path
-          d="M23 6 L23 -4 L28 2 L33 -6 L38 2 L43 -4 L43 6 Z"
-          fill="#ffd166"
-        />
-      );
+      return <path d="M23 6 L23 -4 L28 2 L33 -6 L38 2 L43 -4 L43 6 Z" fill="#ffd166" />;
     case "leaf":
       return (
         <g>

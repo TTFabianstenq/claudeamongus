@@ -68,10 +68,9 @@ export class SocketGateway {
     this.rooms = new RoomManager({
       createEmitter: (code) => ({
         toRoom: (event, ...args) =>
-          (this.io.to(`room:${code}`) as unknown as { emit: (e: string, ...a: unknown[]) => void }).emit(
-            event,
-            ...args,
-          ),
+          (
+            this.io.to(`room:${code}`) as unknown as { emit: (e: string, ...a: unknown[]) => void }
+          ).emit(event, ...args),
         toPlayer: (socketId, event, ...args) =>
           (this.io.to(socketId) as unknown as { emit: (e: string, ...a: unknown[]) => void }).emit(
             event,
@@ -129,8 +128,7 @@ export class SocketGateway {
       const session = this.session(socket);
       if (!session) return;
       const maybeAck = args.find((a) => typeof a === "function") as
-        | ((res: Ack<never>) => void)
-        | undefined;
+        ((res: Ack<never>) => void) | undefined;
       const ack = (res: Ack<never>) => {
         try {
           maybeAck?.(res);
@@ -287,7 +285,9 @@ export class SocketGateway {
     socket.on(
       "lobby:cosmetic",
       this.guarded(socket, "lobby:cosmetic", cosmeticSchema, (payload, ack) => {
-        requireRoom(ack, (room, playerId) => room.setCosmetic(playerId, payload.color, payload.hat));
+        requireRoom(ack, (room, playerId) =>
+          room.setCosmetic(playerId, payload.color, payload.hat),
+        );
       }),
     );
 

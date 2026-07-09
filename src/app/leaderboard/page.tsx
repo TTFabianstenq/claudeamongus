@@ -75,9 +75,7 @@ export default function LeaderboardPage() {
               The leaderboard needs a database. Configure DATABASE_URL to enable persistent stats.
             </p>
           ) : entries.length === 0 ? (
-            <p className="text-space-400 py-16 text-center">
-              Nobody here yet — go win some games!
-            </p>
+            <p className="text-space-400 py-16 text-center">Nobody here yet — go win some games!</p>
           ) : (
             <table className="w-full text-left text-sm">
               <thead>
@@ -93,20 +91,27 @@ export default function LeaderboardPage() {
               <tbody>
                 {entries.map((entry) => (
                   <tr key={entry.rank} className="border-space-700 border-b last:border-0">
-                    <td className="text-space-400 px-4 py-2.5 font-mono font-bold">
-                      {entry.rank}
-                    </td>
+                    <td className="text-space-400 px-4 py-2.5 font-mono font-bold">{entry.rank}</td>
                     <td className="px-2 py-2.5">
                       <span className="flex items-center gap-2">
                         <Bean color={entry.color} size={24} />
-                        <span className="font-bold text-white" style={{ textShadow: `0 0 12px ${colorHex(entry.color)}40` }}>
+                        <span
+                          className="font-bold text-white"
+                          style={{ textShadow: `0 0 12px ${colorHex(entry.color)}40` }}
+                        >
                           {entry.name}
                         </span>
                       </span>
                     </td>
-                    <td className="text-mint-400 px-2 py-2.5 text-right font-bold">{entry.gamesWon}</td>
-                    <td className="text-danger-500 px-2 py-2.5 text-right font-bold">{entry.kills}</td>
-                    <td className="text-accent-400 px-2 py-2.5 text-right font-bold">{entry.tasksCompleted}</td>
+                    <td className="text-mint-400 px-2 py-2.5 text-right font-bold">
+                      {entry.gamesWon}
+                    </td>
+                    <td className="text-danger-500 px-2 py-2.5 text-right font-bold">
+                      {entry.kills}
+                    </td>
+                    <td className="text-accent-400 px-2 py-2.5 text-right font-bold">
+                      {entry.tasksCompleted}
+                    </td>
                     <td className="text-space-200 px-4 py-2.5 text-right">{entry.gamesPlayed}</td>
                   </tr>
                 ))}

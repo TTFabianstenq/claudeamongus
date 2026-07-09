@@ -23,7 +23,16 @@ export function MiniMap({ showMe = false, occupancy = null, onRoomClick }: MiniM
       aria-label="Map of the HSS Helion"
     >
       {map.corridors.map((c, i) => (
-        <rect key={`c${i}`} x={c.x} y={c.y} width={c.w} height={c.h} fill="#1d2334" stroke="#38405c" strokeWidth={4} />
+        <rect
+          key={`c${i}`}
+          x={c.x}
+          y={c.y}
+          width={c.w}
+          height={c.h}
+          fill="#1d2334"
+          stroke="#38405c"
+          strokeWidth={4}
+        />
       ))}
       {map.rooms.map((room) => (
         <g key={room.id}>
@@ -76,7 +85,15 @@ export function MiniMap({ showMe = false, occupancy = null, onRoomClick }: MiniM
       {me && (
         <g pointerEvents="none">
           <circle cx={me.x} cy={me.y} r={26} fill="#ffd166" stroke="#05070f" strokeWidth={6} />
-          <circle cx={me.x} cy={me.y} r={44} fill="none" stroke="#ffd166" strokeWidth={4} opacity={0.5}>
+          <circle
+            cx={me.x}
+            cy={me.y}
+            r={44}
+            fill="none"
+            stroke="#ffd166"
+            strokeWidth={4}
+            opacity={0.5}
+          >
             <animate attributeName="r" values="30;60;30" dur="2s" repeatCount="indefinite" />
             <animate attributeName="opacity" values="0.6;0;0.6" dur="2s" repeatCount="indefinite" />
           </circle>
