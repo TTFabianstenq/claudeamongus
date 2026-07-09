@@ -1,0 +1,200 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------- auth
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  passwordHash String?
+  image        String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  accounts       Account[]
+  sessions       Session[]
+  profile        Profile?
+  stats          Stats?
+  settings       UserSettings?
+  cosmetics      UserCosmetic[]
+  matchPlayers   MatchPlayer[]
+  sentFriends    Friendship[]  @relation("FriendRequester")
+  receivedFriends Friendship[] @relation("FriendAddressee")
+}
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// ---------------------------------------------------------------- profile & social
+
+model Profile {
+  id            String  @id @default(cuid())
+  userId        String  @unique
+  displayName   String
+  bio           String  @default("")
+  favoriteColor String  @default("red")
+  equippedHat   String  @default("none")
+  user          User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserSettings {
+  id             String  @id @default(cuid())
+  userId         String  @unique
+  theme          String  @default("dark")
+  sfxVolume      Float   @default(0.8)
+  musicVolume    Float   @default(0.5)
+  reducedMotion  Boolean @default(false)
+  colorblindMode Boolean @default(false)
+  user           User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum FriendStatus {
+  PENDING
+  ACCEPTED
+  BLOCKED
+}
+
+model Friendship {
+  id          String       @id @default(cuid())
+  requesterId String
+  addresseeId String
+  status      FriendStatus @default(PENDING)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  requester User @relation("FriendRequester", fields: [requesterId], references: [id], onDelete: Cascade)
+  addressee User @relation("FriendAddressee", fields: [addresseeId], references: [id], onDelete: Cascade)
+
+  @@unique([requesterId, addresseeId])
+  @@index([addresseeId, status])
+}
+
+// ---------------------------------------------------------------- stats & history
+
+model Stats {
+  id                String @id @default(cuid())
+  userId            String @unique
+  gamesPlayed       Int    @default(0)
+  gamesWon          Int    @default(0)
+  crewGames         Int    @default(0)
+  crewWins          Int    @default(0)
+  impostorGames     Int    @default(0)
+  impostorWins      Int    @default(0)
+  kills             Int    @default(0)
+  timesKilled       Int    @default(0)
+  tasksCompleted    Int    @default(0)
+  bodiesReported    Int    @default(0)
+  emergenciesCalled Int    @default(0)
+  sabotagesFixed    Int    @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([gamesWon])
+  @@index([kills])
+}
+
+enum MatchWinner {
+  CREW
+  IMPOSTORS
+}
+
+model Match {
+  id        String      @id @default(cuid())
+  roomCode  String
+  mapId     String
+  winner    MatchWinner
+  reason    String
+  settings  Json
+  startedAt DateTime
+  endedAt   DateTime
+  players   MatchPlayer[]
+
+  @@index([endedAt])
+}
+
+model MatchPlayer {
+  id             String  @id @default(cuid())
+  matchId        String
+  userId         String?
+  displayName    String
+  color          String
+  role           String
+  won            Boolean
+  died           Boolean
+  kills          Int     @default(0)
+  tasksCompleted Int     @default(0)
+  bodiesReported Int     @default(0)
+
+  match Match @relation(fields: [matchId], references: [id], onDelete: Cascade)
+  user  User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+}
+
+// ---------------------------------------------------------------- cosmetics
+
+enum CosmeticType {
+  HAT
+  COLOR
+}
+
+model Cosmetic {
+  id          String       @id @default(cuid())
+  key         String       @unique
+  name        String
+  type        CosmeticType
+  rarity      String       @default("common")
+  description String       @default("")
+  owners      UserCosmetic[]
+}
+
+model UserCosmetic {
+  id         String   @id @default(cuid())
+  userId     String
+  cosmeticId String
+  unlockedAt DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  cosmetic Cosmetic @relation(fields: [cosmeticId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, cosmeticId])
+}
