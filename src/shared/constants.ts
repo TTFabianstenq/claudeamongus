@@ -58,7 +58,7 @@ export const TASK_MIN_DURATION_MS: Record<string, number> = {
   download: 4000,
   upload: 4000,
   alignEngine: 800,
-  unlockManifolds: 2000,
+  unlockManifolds: 1500,
   startReactor: 5000,
   garbage: 1200,
   asteroids: 6000,

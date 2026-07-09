@@ -19,7 +19,7 @@ import {
   type HatId,
   type PlayerColorId,
 } from "@/shared/constants";
-import { HELION, allFloors, ventById, type MapDef } from "@/shared/map/helion";
+import { HELION, allFloors, roomAt, ventById, type MapDef } from "@/shared/map/helion";
 import { CollisionGrid, dist, stepMovement } from "@/shared/physics";
 import { randomToken, shuffle } from "@/shared/rng";
 import type {
@@ -798,7 +798,44 @@ export class GameRoom {
       taskBar: this.sabotage.commsDown ? 0 : this.tasks.progress(this.playerList),
       killCooldownAt: recipient.role === "impostor" ? recipient.killReadyAt : 0,
       emergenciesLeft: Math.max(0, this.settings.emergencyMeetings - recipient.emergenciesUsed),
+      admin: this.adminDataFor(recipient),
+      cameras: this.cameraDataFor(recipient),
     };
+  }
+
+  /** Admin-table occupancy: alive players + bodies per room, comms permitting. */
+  private adminDataFor(recipient: ServerPlayer): Record<string, number> | null {
+    if (this.phase !== "playing" || this.sabotage.commsDown) return null;
+    if (!recipient.alive && recipient.role !== "crewmate") return null;
+    const table = this.map.consoles.find((c) => c.id === "device-admin-map");
+    if (!table || dist(recipient.x, recipient.y, table.x, table.y) > USE_RADIUS) return null;
+    const counts: Record<string, number> = {};
+    const add = (x: number, y: number) => {
+      const room = roomAt(this.map, x, y);
+      if (room) counts[room.id] = (counts[room.id] ?? 0) + 1;
+    };
+    for (const p of this.playerList) {
+      if (p.alive && !p.inVentId) add(p.x, p.y);
+    }
+    for (const b of this.bodies) add(b.x, b.y);
+    return counts;
+  }
+
+  /** Security camera feeds: anonymous colored beans near each lens. */
+  private cameraDataFor(
+    recipient: ServerPlayer,
+  ): Array<{ camId: string; players: import("@/shared/types").CameraFeedPlayer[] }> | null {
+    if (this.phase !== "playing" || this.sabotage.commsDown) return null;
+    const console_ = this.map.consoles.find((c) => c.id === "device-cameras");
+    if (!console_ || dist(recipient.x, recipient.y, console_.x, console_.y) > USE_RADIUS) {
+      return null;
+    }
+    return this.map.cameras.map((cam) => ({
+      camId: cam.id,
+      players: this.playerList
+        .filter((p) => p.alive && !p.inVentId && dist(p.x, p.y, cam.x, cam.y) <= 240)
+        .map((p) => ({ color: p.color, x: p.x - cam.x, y: p.y - cam.y, moving: p.moving })),
+    }));
   }
 
   // ---------------------------------------------------------------- win / end

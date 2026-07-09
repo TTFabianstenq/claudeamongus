@@ -130,6 +130,13 @@ export interface DoorState {
   closedUntil: number; // unix ms; 0 = open
 }
 
+export interface CameraFeedPlayer {
+  color: PlayerColorId;
+  x: number;
+  y: number;
+  moving: boolean;
+}
+
 export interface GameSnapshot {
   tick: number;
   now: number; // server unix ms (clock sync)
@@ -141,6 +148,10 @@ export interface GameSnapshot {
   taskBar: number; // 0..1 global crew task progress
   killCooldownAt: number; // recipient-only: unix ms when kill is ready (impostors)
   emergenciesLeft: number; // recipient-only
+  /** live room occupancy — only while the recipient stands at the admin table */
+  admin: Record<string, number> | null;
+  /** camera feeds — only while the recipient stands at the security console */
+  cameras: Array<{ camId: string; players: CameraFeedPlayer[] }> | null;
 }
 
 export interface TaskAssignment {
